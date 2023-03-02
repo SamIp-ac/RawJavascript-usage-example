@@ -5,11 +5,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
-const osmd = require('opensheetmusicdisplay.js');
+const osmd = require('opensheetmusicdisplay');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
+app.get('/', (req, res) => {
+    res.send('Hello, API!');
+  });
 
 app.post('/upload', (req, res) => {
   const dataUrl = req.body.dataUrl;
@@ -24,4 +28,6 @@ app.post('/upload', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server listening at http://localhost:${PORT}`);
+  });

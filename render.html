@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>OpenSheetMusicDisplay Example</title>
+  <script src="opensheetmusicdisplay.min.js"></script>
+  <script src="fileSelectAndLoadOSMD.js"></script>
+</head>
+<body>
+  <div id="osmd"></div>
+
+  <script>
+    const osmd = new opensheetmusicdisplay.OSMD('osmd');
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'resources/Sonata no 4 in D majo.xml', true);
+    xhr.responseType = 'arraybuffer';
+
+    xhr.onload = function() {
+      const data = new Uint8Array(xhr.response);
+      osmd.load(data);
+      osmd.render();
+    };
+
+    xhr.send();
+  </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 function handleFileSelect(evt) {
     var maxOSMDDisplays = 10; // how many scores can be displayed at once (in a vertical layout)
+    //var files = [new File([""], "resources/Sonata no 4 in D majo.xml")];
     var files = evt.target.files; // FileList object
     var osmdDisplays = Math.min(files.length, maxOSMDDisplays);
 
@@ -45,5 +46,6 @@ function handleFileSelect(evt) {
       }
     }
   }
+
 
 document.getElementById("files").addEventListener("change", handleFileSelect, false);

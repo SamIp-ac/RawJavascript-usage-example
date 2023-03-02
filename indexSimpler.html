@@ -1,46 +1,129 @@
 <html>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+
 <head>
-	<title> OSMD Raw Javascript Usage Example - Simpler Version</title>
+  <title> OSMD Raw Javascript Usage Example - Simpler Version</title>
 </head>
+
 <body>
 
-<script src="opensheetmusicdisplay.min.js"></script> <!-- you need to provide the .js file, see README.md -->
-<div id="osmdCanvas" style="width: 100%"/>
+  <script src="opensheetmusicdisplay.min.js"></script> <!-- you need to provide the .js file, see README.md -->
+  <div id="osmdCanvas" style="width: 100%" />
 
-<input type="file" id="fileInput" name="file" formenctype="application/zip"/>
+  <input type="file" id="fileInput" name="file" formenctype="application/zip" />
+  <button id="saveOutput">Download as HTML</button>
 
-<script>
-  var osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdCanvas");
-  //osmd.TransposeCalculator = new opensheetmusicdisplay.TransposeCalculator(); // needs OSMD 1.0.0+, better 1.3.0+
-  function handleFileSelect(evt) {
-    var file = evt.target.files[0];
+  <script>
+    var osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdCanvas");
+    //osmd.TransposeCalculator = new opensheetmusicdisplay.TransposeCalculator(); // needs OSMD 1.0.0+, better 1.3.0+
+    function handleFileSelect(evt) {
+      var file = evt.target.files[0];
 
-    if (!file.name.match('.*\.xml') && !file.name.match('.*\.musicxml') && !file.name.match('.*\.mxl')) {
-      alert('You selected a non-xml file. Please select only music xml files.');
-      return;
-    }
+      if (!file.name.match('.*\.xml') && !file.name.match('.*\.musicxml') && !file.name.match('.*\.mxl')) {
+        alert('You selected a non-xml file. Please select only music xml files.');
+        return;
+      }
 
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      osmd.load(e.target.result).then(
-        function() {
-          //console.log("e.target.result: " + e.target.result);
-          // osmd.sheet.Transpose = 1;
-          osmd.render();
-        }
-      );
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        osmd.load(e.target.result).then(
+          function () {
+            //console.log("e.target.result: " + e.target.result);
+            // osmd.sheet.Transpose = 1;
+            osmd.render();
+            // Here ?
+            var fix_value = 1.5; // A fixed horizontal shifting
+            var List1 = [[0, 0], [2, 0], [1, 0], [1], [0], [0], [-1], [-1], [0], [-1, 0], [1, 0], [14, 0], [11, 0], [-1, 0], [11, 0], [1, 0], [1, 0], [2, 0], [1], [-1], [-1], [0], [-1], [-1], [0, 0], [1, 0], [2, 0], [11, 0], [-1, 0], [-1, 0], [1, 0], [14, 0], [1, 0], [1], [0], [-1], [-1], [0], [0], [-1], [-1], [0], [1], [1], [-1], [1], [-1], [1], [1], [1], [14], [1], [1], [0], [1], [4], [0], [1], [-1], [1], [1], [1], [0], [0, 0], [11, 0], [-1, 0], [-2, 0, 0, 0], ["Rest", "Rest"], [0], [0], [1], [-1], [1], [-1], [0, 0], [2, 0, 0, 0], [7], [0], [1], [-1], [1], [-1], [0, 0], [2, 0, 0, 0], [0], [5], [0], [-1], [0], [-2], [4, 0], [11, 0, 0, 0], [5], [5], [0], [-1], [0], [-2], [0, 0], [14, 0, 0, 0], [1], [0], [0], [-1], [-1], [0], [14], [-1], [-1], [0], [-1], [-1], [0], [0], [-1], [1], [1], [1], [0], [-1], [0], [1], [0], [4], [0, 0], [2, 0], [1, 0], [1], [0], [0], [-1], [-1], [0], [-1, 0], [1, 0], [11, 0], [11, 0], [-1, 0], [-1, 0], [1, 0], [1, 0], [1, 0], [1], [-1], [-1], [0], [-1], [-1], [0, 0], [1, 0], [2, 0], [11, 0], [-1, 0], [-1, 0], [1, 0], [14, 0], [1, 0], [1], [0], [-1], [-1], [0], [0], [-1], [-1], [0], [1], [1], [-1], [1], [-1], [1], [1], [1], [14], [1], [1], [0], [1], [4], [0], [1], [-1], [1], [1], [1], [0], [0, 0], [11, 0], [-1, 0], [-2, 0, 0, 0], ["Rest", "Rest"], [0, 0], [11, 0], [1, 0], [-1, 0], [2, 0], [14, 0], [11, 0], [14, 0], [2, 0], [11, 0], [4, 0], ["Rest", "Rest"], [0, 0], [11, 0], [2, 0], [-1, 0], [2, 0], [14, 0], [11, 0], [14, 0], [2, 0], [11, 0], [4, 0], ["Rest", "Rest"], [0, 0], [11, 0], [-1, 0], [2, 0], [-2, 0], [-1, 0], [0, 0], [1, 0], [-1, 0], [11, 0], [-1, 0], [-1, 0], [12, 0], [11, 0], [2, 0], [1, 0], [-1, 0], [-1, 0], [0, 0], [1, 0], [0, 0], [-1, 0, 0, 0], ["Rest", "Rest"], [0, 0], [1, 0], [1, 0], [0], [-1], [0], [-1], [-1], [0], [-1, 0], [1, 0], [14, 0], [9, 0], [-1, 0], [14, 0], [0, 0], [1, 0], [1, 0], [1], [-1], [-1], [0], [-1], [-1], [-1, 0], [1, 0], [14, 0], [11, 0], [14, 0], [11, 0], [1, 0], [11, 0], [2, 0], [1], [0], [-1], [-1], [-1], [0], [0], [-1], [0], [1], [1], [11], [1], [0], [1], [1], [0], [11], [1], [0], [0], [0], [1], [0], [1], [-1], [1], [5], [0], [0], [1, 0], [11, 0], [-1, 0], [-1, 0, 0, 0], ["Rest", "Rest"], [0], [11], [14], [9], [11], [4], [14], [9], [14], [9], [14], [9], [11], [4], [7], [1], [14], [9], [11], [4], [7], [1], [11], [4], [14], [9], [7], [1], [7], [0], [8], [0], [7], [1], [11], [4], [7], [0], [14], [9], [7], [0], [7], [1], [11], [4], [16], [11], [14, 0], [2, 0], [1, 0], [1], [0], [0], [-1], [-1], [0], [-1, 0], [1, 0], [14, 0], [11, 0], [-1, 0], [11, 0], [1, 0], [1, 0], [2, 0], [1], [-1], [-1], [0], [-1], [-1], [0, 0], [1, 0], [2, 0], [11, 0], [-1, 0], [-1, 0], [1, 0], [14, 0], [1, 0], [1], [0], [-1], [-1], [0], [0], [-1], [-1], [0], [1], [1], [-1], [1], [-1], [1], [1], [1], [14], [1], [1], [0], [1], [4], [0], [1], [-1], [1], [1], [1], [0], [0, 0], [11, 0], [-1, 0], [-2, 0, 0, 0]];
+            var List_color = [["green", "green"], ["red", "red"], ["red", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "green"], ["red", "red"], ["red", "red"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["green", "green"], ["red", "green"], ["red", "red"], ["red", "green", "green", "green"], ["red", "red"], ["green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "red"], ["red", "red", "red", "red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "red"], ["red", "red", "red", "red"], ["green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "green"], ["red", "green", "green", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["green", "green"], ["red", "green", "green", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["green", "green"], ["red", "red"], ["red", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "green"], ["red", "red"], ["red", "red"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["green", "green"], ["red", "green"], ["red", "red"], ["red", "green", "green", "green"], ["red", "red"], ["green", "green"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "red"], ["green", "green"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "red"], ["green", "green"], ["red", "green"], ["red", "red"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "red"], ["red", "red"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "red", "red", "red"], ["red", "red"], ["green", "green"], ["red", "red"], ["red", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "green"], ["red", "red"], ["red", "red"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "green"], ["red", "green"], ["red", "red"], ["red", "green", "green", "green"], ["red", "red"], ["green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["green"], ["red"], ["red"], ["red"], ["green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red", "red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red", "green"], ["red", "red"], ["red", "red"], ["red", "red"], ["red", "green"], ["red", "red"], ["red", "green"], ["red", "green"], ["red", "green"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["red"], ["green", "green"], ["red", "green"], ["red", "red"], ["red", "green", "green", "green"]];
+            let k = 0;
+            for (let i = 0; i < osmd.GraphicSheet.MeasureList.length; i++) {
+              try {
+                osmd.graphic.measureList[i][0].staffEntries.length; // This may throw an error
+              } catch (e) {
+                continue // If an error occurred, handle it
+              }
+              for (let j = 0; j < osmd.graphic.measureList[i][0].staffEntries.length; j++) {
+                const bbox = osmd.graphic.measureList[i][0].staffEntries[j].graphicalVoiceEntries[0].notes[0].boundingBox.absolutePosition;
+                console.log(`pos: (${bbox.x}, ${bbox.y})`);
+                let accumulated_h_shifting = 0;
+                try {
+                  List1[k].length; // This may throw an error
+                } catch (e) {
+                  continue // If an error occurred, handle it
+                }
+                for (let n = 0; n < List1[k].length; n++) {
+                  let y_shifting = 0;
+                  let y_pos = 0;
+                  let x_pos = 0;
+                  if (List1[k][n] == 'Rest') { continue; }
+                  // let color = List_color[k][n];
+                  let color = "#8020a162";
+                  if (List_color[k][n] == "green") { color = "#00FF00"; } else if (List_color[k][n] == "red") { color = "#FF0000"; };
+                  y_shifting = List1[k][n] / 2;
+                  x_pos = bbox.x + accumulated_h_shifting; // The x-coordinate of the note
+                  accumulated_h_shifting += fix_value; // The y-coordinate of the note
+                  y_pos = bbox.y - y_shifting;
+                  osmd.Drawer.DrawOverlayLine({ x: x_pos, y: bbox.y }, { x: x_pos + fix_value, y: bbox.y }, osmd.GraphicSheet.MusicPages[0], color, .3)
+                }
+
+                k++;
+              }
+            }
+
+          }
+        );
+      };
+      if (file.name.match('.*\.mxl')) {
+        // have to read as binary, otherwise JSZip will throw ("corrupted zip: missing 37 bytes" or similar)
+        reader.readAsBinaryString(file);
+        // Here ?
+      } else {
+        reader.readAsText(file);
+      }
     };
-    if (file.name.match('.*\.mxl')) {
-      // have to read as binary, otherwise JSZip will throw ("corrupted zip: missing 37 bytes" or similar)
-      reader.readAsBinaryString(file);
-    } else {
-      reader.readAsText(file);
-    }
-  }
 
-  document.getElementById("fileInput").addEventListener("change", handleFileSelect, false);
-</script>
+    var t = document.getElementById("fileInput").addEventListener("change", handleFileSelect, false);
+
+    // save as html
+    if (fileInput) {
+      document.getElementById("saveOutput").addEventListener("click", function () {
+        var output = osmd.container.innerHTML;
+        var file = new Blob([output], { type: "text/html;charset=utf-8" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(file);
+        a.download = "output.html";
+        a.click();
+      });
+    };
+    $(window).on('load', function () { })
+      //dom not only ready, but everything is loaded
+
+
+  </script>
 
 </body>
+
 </html>
+```if (fileInput) {document.getElementById("saveOutput").addEventListener("click", function() {
+var output = osmd.container.innerHTML;
+var file = new Blob([output], {type: "text/html;charset=utf-8"});
+var a = document.createElement("a");
+a.href = URL.createObjectURL(file);
+a.download = "output.html";
+a.click();
+});};```
+```
+// Add event listener to save button
+document.getElementById("saveOutput").addEventListener("click", function () {
+var output = osmd.container.innerHTML;
+window.jsPDF = window.jspdf.jsPDF;
+var pdf = new jsPDF();
+pdf.html(output, {
+callback: function () {
+pdf.save("output.pdf");
+},
+x: 10,
+y: 10
+});
+});
+```
